@@ -32,11 +32,12 @@ export function createTrade(msg: Msg, priceData: SpotTileData, currencyPair: Cur
 }
 
 export const closePositionEpic: ApplicationEpic = (action$, state$, { platform }) => {
-  const interopSubscribe$: Observable<unknown> = bindCallback(platform.interop.subscribe)('*', 'close-position')
+  // the function which returns the Observable that delivers the same values the callback would deliver
+  const interopSubscribe$: Observable<unknown> = bindCallback(platform.interop!.subscribe)('*', 'close-position')
 
   return action$.pipe(
     applicationConnected,
-    switchMapTo(interopSubscribe$),
+    switchMapTo(interopSubscribe$), //TODO ML should definitely check this up
     withLatestFrom(state$),
     map(([message, state]) => {
       const [msg, uuid] = message as Message

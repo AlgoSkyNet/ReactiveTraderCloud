@@ -8,6 +8,6 @@ import { ExecutedTradeAction } from './spotTileEpics'
 export const publishTradeExecutedEpic: ApplicationEpic = (action$, state$, { platform }) =>
   action$.pipe(
     ofType<Action, ExecutedTradeAction>(TILE_ACTION_TYPES.TRADE_EXECUTED),
-    tap((action: ExecutedTradeAction) => action.meta && platform.interop.publish(action.meta.correlationId, null)),
+    tap((action: ExecutedTradeAction) => action.meta && platform.interop!.publish(action.meta.correlationId, null)),
     ignoreElements(),
   )

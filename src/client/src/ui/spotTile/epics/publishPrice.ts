@@ -21,7 +21,7 @@ export const publishPriceUpdateEpic: ApplicationEpic = (action$, state$, { refer
     map(action =>
       referenceDataService.getCurrencyPairUpdates$().pipe(
         map(currencyMap => addRatePrecisionToPrice(currencyMap, action.payload)),
-        tap(enhancedPrice => platform.interop.publish('price-update', enhancedPrice)),
+        tap(enhancedPrice => platform.interop!.publish('price-update', enhancedPrice)),
         ignoreElements(),
         takeUntil(action$.pipe(applicationDisconnected)),
       ),
