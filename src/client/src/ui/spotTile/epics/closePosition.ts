@@ -32,7 +32,6 @@ export function createTrade(msg: Msg, priceData: SpotTileData, currencyPair: Cur
 }
 
 export const closePositionEpic: ApplicationEpic = (action$, state$, { platform }) => {
-  // the function which returns the Observable that delivers the same values the callback would deliver
   const interopSubscribe$: Observable<unknown> = bindCallback(platform.interop!.subscribe)('*', 'close-position')
 
   return action$.pipe(
